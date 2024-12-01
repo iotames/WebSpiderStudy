@@ -7,7 +7,6 @@
 从一个网络请求页面开始，解析网络响应的数据，再获取新的请求链接，再发起新的网络请求，直到所有页面都爬取完毕为止。
 就如同蜘蛛网一般，一个网页为一个结点，通过网页里面的URL链接，与其他网页建立联系，在所有页面节点里抓取数据。
 
-
 爬虫的本质，就是一个个网络请求的发起和网络响应的解析。
 
 
@@ -31,65 +30,30 @@
 5. 数据分析和展示：读取分析仓库基础数据，生成导出文件: 如Excel、统计图表
 
 
-## 底层基础: TCP/IP协议和HTTP协议
+## 爬虫的底层基础
 
-
-### TCP/IP协议简介
-
-![IP/TCP协议向上解包和向下打包](iptcp.png)
-
-TCP/IP 协议，它是全世界互联网数据传输的统一标准和规范。
-
-TCP/IP 协议，应该叫 TCP/IP 协议组(协议族)。是基于TCP和IP这两个最初的协议之上的，不同的通信协议的大的集合。
-
-TCP/IP 协议族可分为五层：物理层、数据链路层、网络层、传输层和应用层。
-
-网络层有 IP 协议、ICMP 协议、ARP 协议、RARP 协议和 BOOTP 协议。
-
-在传输层中有 TCP 协议与 UDP 协议。
-
-在应用层有 HTTP、FTP、TELNET、SMTP、DNS 等协议。
-
-![IP/TCP协议的应用层](iptcpport.png)
+[互联网分层协议栈](InternetLayer.md)
 
 
 ### HTTP协议简介
 
+1. 释名： HTTP 协议是 HyperTextTransferProtocol（超文本传输协议）的缩写。
 
-HTTP 协议是 HyperTextTransferProtocol（超文本传输协议）的缩写。
+2. 源流：提到 HTTP 协议，就得提到 TCP/IP 协议，它是全世界互联网数据传输的统一标准和规范。`TCP/IP协议族` 通常分为四层（也有分为五层的），又叫 `TCP/IP四层模型` ：网络接口层（物理层和数据链路层），网络层，传输层，应用层。HTTP 为 `应用层` 协议 ，基于传输层的 TCP 协议。
 
-提到 HTTP 协议，就得提到 TCP/IP 协议，它是全世界互联网数据传输的统一标准和规范。
+3. 特点：默认占用服务端 80 端口。在正式的数据传输之前，要先经过 3 次握手确认连接。比 udp 协议速度慢，而可靠性强。内容包含：请求和响应的消息头 header 和消息体 body
 
-HTTP 为应用层协议，基于传输层的 TCP 协议，默认占用服务端 80 端口。
+4. 应用场景：平时浏览网页和应用程序的接口数据交互。
 
-特点:在正式的数据传输之前，要先经过 3 次握手确认连接。比 udp 协议速度慢，而可靠性强。
-
-应用场景:平时浏览网页和应用程序的接口数据交互。
-
-请求动作:GET,POST,PUT,DELETE 等。
-
-请求和响应的消息头 header 和消息体 body，都是 HTTP 协议规范内的东西。
+5. 请求动作：GET,POST,PUT,DELETE 等。
 
 
-### Request，Response和Header
-
-![HTTP网络请求](chromef12.png)
+## 数据包的抓取
 
 
-### 数据封装打包
+### Request请求，Response响应和Header头
 
-数据的封装打包过程为：原始数据→数据段→数据包→数据帧→比特流
-
-1. 应用层：原始数据被转换成二进制数据
-2. 传输层：数据被打上传输层头部比如TCP头部，封装成Segment 数据段。此步关键信息是端口号。
-3. 网络层：会给数据打上IP头部，封装成Packet数据包，此步关键信息是源目ip地址。
-4. 数据链路层 ：会给数据打上帧头部，封装成Frame数据帧，头部中关键信息是源目MAC地址。
-5. 物理层：在网线或者光纤上将二进制数据封装成高低电频信号或者光信号。
-
-数据帧最终在物理层上（双绞线、光纤跳线）上以电信号或光信号进行传播转发。
-这种协议栈逐层向下传递数据，并添加报头和报尾的过程称为封装
-
-数据封装与解封装过程: https://zhuanlan.zhihu.com/p/555508423
+![HTTP网络请求](images/chromef12.png)
 
 
 ## 网络抓包工具和MITM中间代理人技术
@@ -100,9 +64,9 @@ HTTP 为应用层协议，基于传输层的 TCP 协议，默认占用服务端 
 
 3. Charles和Fiddler
 
-![HTTP网络请求](chrome_http_package.png)
+![HTTP网络请求](images/chrome_http_package.png)
 
-![mitmproxy](mitmproxy.png)
+![mitmproxy](images/mitmproxy.png)
 
 
 ## 数据解析和入库
@@ -146,6 +110,8 @@ HTTP 为应用层协议，基于传输层的 TCP 协议，默认占用服务端 
 - 通义千问 https://tongyi.aliyun.com/qianwen/
 - 深度求索 https://chat.deepseek.com
 - KIMI（支持联网搜索） https://kimi.moonshot.cn
+- cursor IDE https://www.cursor.com/
+- windsurf IDE https://codeium.com/windsurf
 
 
 ## 网络爬虫法律法规
